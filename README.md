@@ -1,15 +1,23 @@
-![Python](https://img.shields.io/badge/Python-3.10-blue?style=flat-square&logo=python)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange?style=flat-square&logo=tensorflow)
-![Accuracy](https://img.shields.io/badge/Val%20Accuracy-98.70%25-brightgreen?style=flat-square)
-![Platform](https://img.shields.io/badge/Platform-Google%20Colab-yellow?style=flat-square&logo=googlecolab)
-# 🌿 Plant Disease Detection — CNN vs ANN Binary Classifier
+<h1 align="center">🌿 Plant Disease Detection</h1>
+<h3 align="center">CNN vs ANN Binary Classifier · PlantVillage Dataset</h3>
 
-A deep learning project that detects whether a plant leaf is **Healthy** or **Diseased** using two neural network architectures — a custom **CNN** and an **ANN** — trained on the **PlantVillage Dataset** and compared head-to-head.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10-blue?style=flat-square&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TensorFlow-2.x-orange?style=flat-square&logo=tensorflow&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Keras-red?style=flat-square&logo=keras&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Val%20Accuracy-98.70%25-brightgreen?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Platform-Google%20Colab%20T4-yellow?style=flat-square&logo=googlecolab&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Streamlit-deployed-FF4B4B?style=flat-square&logo=streamlit&logoColor=white"/>
+</p>
 
-> **Course:** Neural Networks
-> **Team:** Norhan Medhat · Hemmat Hamdi · Noran Mohammed · Nada Mahmoud · Mina Saber · Yousef Emad
-> **University:** Benha University — Computer Science, AI Track
-> **Platform:** Google Colab (GPU: T4)
+<p align="center">
+  <b>Course:</b> Neural Networks &nbsp;·&nbsp;
+  <b>University:</b> Benha University — Computer Science, AI Track
+</p>
+
+<p align="center">
+  Norhan Medhat &nbsp;·&nbsp; Hemmat Hamdi &nbsp;·&nbsp; Noran Mohammed &nbsp;·&nbsp; Nada Mahmoud &nbsp;·&nbsp; Mina Saber &nbsp;·&nbsp; Yousef Emad
+</p>
 
 ---
 
@@ -19,57 +27,66 @@ Given a leaf image, classify it as:
 
 | Label | Description |
 |-------|-------------|
-| 🌱 **Healthy** | No signs of disease |
+| 🌱 **Healthy** | No visible signs of disease |
 | 😷 **Diseased** | Affected by one of 38 plant diseases |
 
 ---
 
 ## 📊 Dataset
 
-**PlantVillage Dataset** — [Kaggle](https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset)
+**PlantVillage Dataset** — [Kaggle Link](https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset)
 
-| Split | Images |
-|-------|--------|
-| Total Healthy | 15,083 |
-| Total Diseased | 39,220 |
-| After Balancing | 30,166 (15,083 each) |
-| Train | ~68% |
-| Validation | ~12% |
-| Test | 20% |
+<table>
+<tr><th>Split</th><th>Images</th></tr>
+<tr><td>Total Healthy</td><td>15,083</td></tr>
+<tr><td>Total Diseased</td><td>39,220</td></tr>
+<tr><td>After Balancing</td><td>30,166 (15,083 each)</td></tr>
+<tr><td>Train</td><td>~68%</td></tr>
+<tr><td>Validation</td><td>~12%</td></tr>
+<tr><td>Test</td><td>20%</td></tr>
+</table>
 
-> Dataset is **balanced** by undersampling the diseased class to match healthy count, preventing class bias.
+> Dataset is **balanced** by undersampling the diseased class to match the healthy count, preventing class bias.
 
-**38 Plant Classes including:**
-- Tomato (Late Blight, Early Blight, Bacterial Spot, Mosaic Virus...)
-- Apple (Scab, Black Rot, Cedar Rust...)
-- Grape, Potato, Corn, Pepper, Peach, Strawberry, and more
+**38 plant classes including:** Tomato (Late Blight, Early Blight, Bacterial Spot, Mosaic Virus), Apple (Scab, Black Rot, Cedar Rust), Grape, Potato, Corn, Pepper, Peach, Strawberry, and more.
 
 ---
 
 ## 🏗️ Model Architectures
 
-### CNN — Convolutional Neural Network (Primary Model)
+<table>
+<tr>
+<th width="50%">🟢 CNN — Primary Model</th>
+<th width="50%">⚪ ANN — Baseline Comparator</th>
+</tr>
+<tr>
+<td>
 
-Custom CNN built with `TensorFlow/Keras` for hierarchical spatial feature extraction:
+Convolutional Neural Network built with `TensorFlow/Keras` for hierarchical spatial feature extraction.
 
 ```
 Input: (128, 128, 3)
 │
-├── Conv2D(32) → BatchNorm → Conv2D(32) → MaxPool → Dropout(0.25)
-├── Conv2D(64) → BatchNorm → Conv2D(64) → MaxPool → Dropout(0.25)
-├── Conv2D(128) → BatchNorm → Conv2D(128) → MaxPool → Dropout(0.30)
+├── Conv2D(32) → BatchNorm → Conv2D(32)
+│   → MaxPool → Dropout(0.25)
+├── Conv2D(64) → BatchNorm → Conv2D(64)
+│   → MaxPool → Dropout(0.25)
+├── Conv2D(128) → BatchNorm → Conv2D(128)
+│   → MaxPool → Dropout(0.30)
 │
 ├── GlobalAveragePooling2D
 ├── Dense(128, relu) → Dropout(0.5)
-└── Dense(1, sigmoid)  ← Binary output
+└── Dense(1, sigmoid)
 ```
 
-### ANN — Artificial Neural Network (Baseline Comparator)
+</td>
+<td>
 
-Fully-connected network treating each pixel as an independent feature:
+Fully-connected network treating each pixel as an independent feature.
 
 ```
-Input: (128, 128, 3) → Flatten → 49,152 features
+Input: (128, 128, 3) → Flatten
+→ 49,152 features
 │
 ├── Dense(512) → BatchNorm → Dropout(0.40)
 ├── Dense(256) → BatchNorm → Dropout(0.40)
@@ -77,6 +94,10 @@ Input: (128, 128, 3) → Flatten → 49,152 features
 ├── Dense(64)  → Dropout(0.30)
 └── Dense(1, sigmoid)
 ```
+
+</td>
+</tr>
+</table>
 
 | Component | CNN | ANN |
 |-----------|-----|-----|
@@ -111,12 +132,12 @@ Input: (128, 128, 3) → Flatten → 49,152 features
 
 **CNN Training Progression:**
 
-| Epoch | Train Acc | Val Acc |
-|-------|-----------|---------|
-| 1 | 90.31% | 86.41% |
-| 2 | 95.75% | 95.52% |
-| 4 | 97.61% | 97.54% |
-| 6 | 98.13% | **98.70%** ✅ |
+| Epoch | Train Acc | Val Acc | Progress |
+|-------|-----------|---------|----------|
+| 1 | 90.31% | 86.41% | `████████░░` |
+| 2 | 95.75% | 95.52% | `█████████░` |
+| 4 | 97.61% | 97.54% | `█████████░` |
+| **6 ✅** | **98.13%** | **98.70% 🏆** | `██████████` |
 
 > The CNN significantly outperforms the ANN, demonstrating the value of convolutional feature extraction over raw pixel-wise classification.
 
@@ -124,7 +145,8 @@ Input: (128, 128, 3) → Flatten → 49,152 features
 
 ## 💻 Code
 
-### 📦 1. Imports
+<details>
+<summary><b>📦 1. Imports</b></summary>
 
 ```python
 import os
@@ -143,9 +165,10 @@ import keras
 import kagglehub
 ```
 
----
+</details>
 
-### 📥 2. Load Dataset
+<details>
+<summary><b>📥 2. Load Dataset</b></summary>
 
 ```python
 path = kagglehub.dataset_download("abdallahalidev/plantvillage-dataset")
@@ -155,9 +178,10 @@ if not os.path.exists(color_path):
     raise FileNotFoundError(f"Color folder not found at {color_path}")
 ```
 
----
+</details>
 
-### 🗂️ 3. Build DataFrame & Balance Classes
+<details>
+<summary><b>🗂️ 3. Build DataFrame & Balance Classes</b></summary>
 
 ```python
 healthy_images, diseased_images = [], []
@@ -187,18 +211,20 @@ df_balanced = pd.concat([df_healthy, df_diseased_balanced])
 df_balanced = df_balanced.sample(frac=1, random_state=42).reset_index(drop=True)
 ```
 
----
+</details>
 
-### ✂️ 4. Train / Val / Test Split
+<details>
+<summary><b>✂️ 4. Train / Val / Test Split</b></summary>
 
 ```python
 train_df, temp_df = train_test_split(df_balanced, test_size=0.2, random_state=42, stratify=df_balanced['label'])
 val_df, test_df   = train_test_split(temp_df,     test_size=0.5, random_state=42, stratify=temp_df['label'])
 ```
 
----
+</details>
 
-### 🔄 5. Data Generators
+<details>
+<summary><b>🔄 5. Data Generators</b></summary>
 
 ```python
 train_datagen = ImageDataGenerator(rescale=1./255)
@@ -219,9 +245,10 @@ test_gen = test_datagen.flow_from_dataframe(
 )
 ```
 
----
+</details>
 
-### 🏗️ 6. Build CNN Model
+<details>
+<summary><b>🏗️ 6. Build CNN Model</b></summary>
 
 ```python
 from tensorflow.keras.models import Sequential
@@ -231,28 +258,24 @@ from tensorflow.keras.layers import (
 )
 
 model = Sequential([
-    # Block 1
     Conv2D(32, (3,3), padding='same', activation='relu', input_shape=(128,128,3)),
     BatchNormalization(),
     Conv2D(32, (3,3), activation='relu'),
     MaxPooling2D(2,2),
     Dropout(0.25),
 
-    # Block 2
     Conv2D(64, (3,3), padding='same', activation='relu'),
     BatchNormalization(),
     Conv2D(64, (3,3), activation='relu'),
     MaxPooling2D(2,2),
     Dropout(0.25),
 
-    # Block 3
     Conv2D(128, (3,3), padding='same', activation='relu'),
     BatchNormalization(),
     Conv2D(128, (3,3), activation='relu'),
     MaxPooling2D(2,2),
     Dropout(0.30),
 
-    # Classifier Head
     GlobalAveragePooling2D(),
     Dense(128, activation='relu'),
     Dropout(0.5),
@@ -263,31 +286,27 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 model.summary()
 ```
 
----
+</details>
 
-### 🤖 7. Build ANN Model
+<details>
+<summary><b>🤖 7. Build ANN Model</b></summary>
 
 ```python
 from tensorflow.keras.layers import Flatten
 
 ann_model = Sequential([
     Flatten(input_shape=(128, 128, 3)),
-
     Dense(512, activation='relu'),
     BatchNormalization(),
     Dropout(0.40),
-
     Dense(256, activation='relu'),
     BatchNormalization(),
     Dropout(0.40),
-
     Dense(128, activation='relu'),
     BatchNormalization(),
     Dropout(0.30),
-
     Dense(64, activation='relu'),
     Dropout(0.30),
-
     Dense(1, activation='sigmoid')
 ])
 
@@ -295,9 +314,10 @@ ann_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accura
 ann_model.summary()
 ```
 
----
+</details>
 
-### 🏋️ 8. Train the Models
+<details>
+<summary><b>🏋️ 8. Train the Models</b></summary>
 
 ```python
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
@@ -322,9 +342,10 @@ ann_history = ann_model.fit(
 )
 ```
 
----
+</details>
 
-### 📊 9. Plot Training Curves
+<details>
+<summary><b>📊 9. Plot Training Curves</b></summary>
 
 ```python
 def plot_history(hist, title_prefix):
@@ -347,9 +368,10 @@ plot_history(history,     "CNN")
 plot_history(ann_history, "ANN")
 ```
 
----
+</details>
 
-### 🧪 10. Evaluate & Compare Models
+<details>
+<summary><b>🧪 10. Evaluate & Compare Models</b></summary>
 
 ```python
 def full_evaluation(mdl, gen, label):
@@ -385,9 +407,10 @@ print(f"{'CNN':<8} {cnn_loss:>8.4f} {cnn_acc:>10.4f}")
 print(f"{'ANN':<8} {ann_loss:>8.4f} {ann_acc:>10.4f}")
 ```
 
----
+</details>
 
-### 🔍 11. Single Image Prediction
+<details>
+<summary><b>🔍 11. Single Image Prediction</b></summary>
 
 ```python
 def predict_and_show_image(image_path, mdl, model_name="Model"):
@@ -410,9 +433,10 @@ def predict_and_show_image(image_path, mdl, model_name="Model"):
 predict_and_show_image("/content/your_leaf_image.jpg", model, "CNN")
 ```
 
----
+</details>
 
-### 🌐 12. Streamlit Web App
+<details>
+<summary><b>🌐 12. Streamlit Web App</b></summary>
 
 ```python
 # app.py
@@ -421,7 +445,7 @@ import numpy as np
 import cv2
 from tensorflow.keras.models import load_model
 
-model = load_model("best_cnn_model.h5")  # swap for best_ann_model.h5 to compare
+model = load_model("best_cnn_model.h5")
 
 st.title("🌿 Plant Disease Detection")
 st.write("Upload a leaf image to check if it's healthy or diseased.")
@@ -451,6 +475,8 @@ if uploaded_file is not None:
 streamlit run app.py
 ```
 
+</details>
+
 ---
 
 ## 📤 Sample Predictions
@@ -478,34 +504,35 @@ pip install tensorflow keras opencv-python pandas numpy matplotlib seaborn sciki
 ```
 Plant-Disease-Detection/
 │
-├── PlantVillage_CNN.ipynb    ← Main notebook (EDA + CNN + ANN + Evaluation)
-├── app.py                    ← Streamlit web app
-├── best_cnn_model.h5         ← Saved CNN model
-├── best_ann_model.h5         ← Saved ANN model
-└── README.md
+├── 📁 Documentation/        ← Report & docs
+├── 📁 Presentation/         ← Slides
+└── 📁 code/
+    ├── PlantVillage.ipynb   ← Main notebook (EDA + CNN + ANN + Evaluation)
+    ├── app.py               ← Streamlit web app
+    ├── best_cnn_model.h5    ← Saved CNN model
+    └── best_ann_model.h5    ← Saved ANN model
 ```
 
 ---
 
 ## 📚 Concepts Used
 
-- `Convolutional Neural Networks (CNN)`
-- `Artificial Neural Networks (ANN)`
-- `Model Comparison & Benchmarking`
-- `Batch Normalization & Dropout`
-- `Data Balancing (Undersampling)`
-- `ImageDataGenerators`
-- `Binary Classification`
-- `EarlyStopping & ReduceLROnPlateau`
-- `Confusion Matrix & Classification Report`
-- `Streamlit Deployment`
+`Convolutional Neural Networks` · `Artificial Neural Networks` · `Model Comparison & Benchmarking` · `Batch Normalization & Dropout` · `Data Balancing (Undersampling)` · `ImageDataGenerators` · `Binary Classification` · `EarlyStopping & ReduceLROnPlateau` · `Confusion Matrix & Classification Report` · `Streamlit Deployment`
 
 ---
 
 ## 🔮 Future Work
 
-- Extend to **multi-class** classification across all 38 disease categories
-- Apply **data augmentation** (flips, rotations, zoom, colour jitter)
-- Integrate **transfer learning** (EfficientNet, ResNet50, MobileNetV2)
-- Deploy as a **mobile or web app** for on-field diagnosis
-- Evaluate on **external field-captured images** to test real-world robustness
+| # | Improvement | Description |
+|---|-------------|-------------|
+| 1 | **Multi-class** | Extend to all 38 disease categories |
+| 2 | **Data Augmentation** | Flips, rotations, zoom, colour jitter |
+| 3 | **Transfer Learning** | EfficientNet, ResNet50, MobileNetV2 |
+| 4 | **Mobile / Web App** | On-field diagnosis for farmers |
+| 5 | **Real-world Testing** | Evaluate on field-captured images |
+
+---
+
+<p align="center">
+  Made with 🌱 by the AI Track team · Benha University · 2025
+</p>
