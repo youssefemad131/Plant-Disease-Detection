@@ -1,3 +1,7 @@
+![Python](https://img.shields.io/badge/Python-3.10-blue?style=flat-square&logo=python)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange?style=flat-square&logo=tensorflow)
+![Accuracy](https://img.shields.io/badge/Val%20Accuracy-98.70%25-brightgreen?style=flat-square)
+![Platform](https://img.shields.io/badge/Platform-Google%20Colab-yellow?style=flat-square&logo=googlecolab)
 # 🌿 Plant Disease Detection — CNN vs ANN Binary Classifier
 
 A deep learning project that detects whether a plant leaf is **Healthy** or **Diseased** using two neural network architectures — a custom **CNN** and an **ANN** — trained on the **PlantVillage Dataset** and compared head-to-head.
